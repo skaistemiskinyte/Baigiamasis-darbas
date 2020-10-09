@@ -58,10 +58,8 @@ class Router extends \Core\Abstracts\Router
      * @param $url
      * @return null|array
      */
-    protected static function getRouteByUrl($url): ?array
+    public static function getRouteByUrl($url): ?array
     {
-        // TODO: Implement getRouteByUrl() method.
-
         foreach (self::$routes as $route) {
             if ($route['url'] === $url) {
                 return $route;
@@ -79,7 +77,6 @@ class Router extends \Core\Abstracts\Router
      */
     public static function getUrl($name): ?string
     {
-        // TODO: Implement getUrl() method.
 
         return self::$routes[$name]['url']  ?? null;
     }

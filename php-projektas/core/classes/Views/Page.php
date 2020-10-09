@@ -5,6 +5,11 @@ namespace Core\Views;
 class Page extends \Core\Abstracts\Views\Page
 {
 
+    public function __construct( $data = [] )
+    {
+        parent::__construct($data);
+    }
+
     /**
      * Čia galėsime nustatyti $data['title'] jau sukūrus Page objektą
      *

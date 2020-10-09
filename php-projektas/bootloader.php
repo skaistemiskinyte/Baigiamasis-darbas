@@ -1,6 +1,7 @@
 <?php
 session_start();
 define('ROOT', __DIR__);
+//define('WEBROOT', ROOT . DIRECTORY_SEPARATOR . 'public_html/');
 define('DB_FILE', ROOT . '\app\data\db.json');
 
 

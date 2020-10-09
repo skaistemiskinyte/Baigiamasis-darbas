@@ -12,7 +12,6 @@ use App\App;
  */
 class Session
 {
-    private ?array $user = null;
 
     public function __construct()
     {
@@ -39,22 +38,32 @@ class Session
      */
     public function login(string $username, string $password): bool
     {
-        $user = App::$db->getRowWhere('users', ['username' => $username, 'password' => $password]);
+        // password_verify( $pass, password_hash($pass, PASSWORD_BCRYPT) )
+
+
+        $user = App::$db->getRowWhere('users', ['user_name' => $username]);
         if ($user) {
-            $_SESSION['username'] = $username;
-            $_SESSION['password'] = $password;
-            $this->user = $user;
+            if (is_array($user)) {
+                $user = reset($user);
+            }
+
+            if (!password_verify($password, $user['password'])) {
+                return false;
+            }
+
+            $_SESSION['user_name'] = $user['user_name'];
+
             return true;
         }
         return false;
     }
 
     /**
-     * @return array|null
+     * @return string|null
      */
-    public function getUser(): ?array
+    public function getUser(): ?string
     {
-        return $this->user;
+        return $_SESSION['user_name'] ?? null;
     }
 
     /**

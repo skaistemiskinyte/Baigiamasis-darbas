@@ -35,9 +35,9 @@ abstract class Page extends View
      * Po to galėsime extendinti BasePage su App\Views\Pages\LoginPage.php,
      * kur nustatysime title ir content.
      */
-    public function __construct()
+    public function __construct( $data = [] )
     {
-
+        parent::__construct($data);
     }
 
     /**

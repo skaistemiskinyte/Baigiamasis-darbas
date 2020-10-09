@@ -3,5 +3,4 @@
 require '../bootloader.php';
 
 App\App::$db->createTable('users');
-App\App::$db->createTable('feedback');
-
+App\App::$db->createTable('feedbacks');

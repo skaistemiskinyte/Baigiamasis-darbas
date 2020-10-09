@@ -1,4 +1,5 @@
 <?php
+
 namespace Core;
 
 class FileDB
@@ -205,7 +206,7 @@ class FileDB
     }
 
     /**
-     * get row by condition array from $data
+     * get rows by condition array from $data
      *
      * @param string $table_name
      * @param array $conditions
@@ -230,21 +231,34 @@ class FileDB
         return $results;
     }
 
+    public function getAll(string $table_name): array
+    {
+        if (!$this->tableExists($table_name)) {
+            return [];
+        }
+        return $this->data[$table_name];
+    }
+
     public function getRowWhere(string $table_name, array $conditions): ?array
     {
-        if ($this->tableExists($table_name)) {
-            foreach ($this->data[$table_name] as $row_key => $row) {
-                $success = true;
-                foreach ($conditions as $condition_key => $condition) {
-                    if ($row[$condition_key] !== $condition) {
+        $results = [];
+        $table = $this->data[$table_name];
 
-                        $success = false;
-                        break;
-                    }
+        foreach ($table as $row_key => $row) {
+            $success = true;
+
+            foreach ($conditions as $cond_key => $comparison_value_1) {
+                $comparison_value_2 = $row[$cond_key];
+//                var_dump(['condition key' => $cond_key, 'condition value' => $condition, 'row' => $row]);
+                if ($comparison_value_1 !== $comparison_value_2) {
+                    $success = false;
+                    break;
                 }
-                if ($success) return $row;
+            }
+            if ($success) {
+                $results[$row_key] = $row;
             }
         }
-        return null;
+        return $results;
     }
 }

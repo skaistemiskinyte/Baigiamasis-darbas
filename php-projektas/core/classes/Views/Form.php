@@ -60,9 +60,8 @@ class Form extends \Core\Abstracts\Views\Form
                     $function = $validator;
                 }
 
-                if ($function($this->getSubmitData()[$key], $field, $params ?? null)) {
-                    $field['value'] = $this->getSubmitData()[$key];
-                } else {
+                $field['value'] = $this->getSubmitData()[$key];
+                if (!$function($this->getSubmitData()[$key], $field, $params ?? null)) {
                     $success = false;
                     break;
                 }
@@ -116,4 +115,10 @@ class Form extends \Core\Abstracts\Views\Form
     public function addError(string $error) {
         $this->data['error'] = $error;
     }
+
+    public function getData()
+    {
+        return $this->data;
+    }
+
 }

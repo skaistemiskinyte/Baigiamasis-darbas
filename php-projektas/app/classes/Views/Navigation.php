@@ -15,36 +15,31 @@ class Navigation extends View
             'home' => [
                 'url' => Router::getUrl('index'),
                 'class' => 'left',
-                'title' => 'Home',
+                'title' => 'Titulinis',
             ],
+        ];
+        $nav[] = [
+            'url' => Router::getUrl('feedback'),
+            'class' => 'left' . ( Router::getUrl('feedback') == $_SERVER['REQUEST_URI'] ? ' active' : ''),
+            'title' => 'Atsiliepimai',
         ];
         if (App::$session->getUser()) {
             $nav[] = [
-                'url' => Router::getUrl('feedback'),
-                'class' => 'left',
-                'title' => 'Feedback',
-            ];
-            $nav[] = [
                 'url' => Router::getUrl('logout'),
                 'class' => 'left',
-                'title' => 'Logout',
+                'title' => 'Atsijungti',
             ];
 
         } else {
             $nav[] = [
-                'url' => Router::getUrl('feedback'),
-                'class' => 'left',
-                'title' => 'Feedback',
-            ];
-            $nav[] = [
                 'url' => Router::getUrl('register'),
-                'class' => 'right',
-                'title' => 'Register',
+                'class' => 'right' . ( Router::getUrl('register') == $_SERVER['REQUEST_URI'] ? ' active' : ''),
+                'title' => 'Registruotis',
             ];
             $nav[] = [
                 'url' =>Router::getUrl('login'),
-                'class' => 'right',
-                'title' => 'Login',
+                'class' => 'right' . ( Router::getUrl('login') == $_SERVER['REQUEST_URI'] ? ' active' : ''),
+                'title' => 'Prisijungti',
             ];
         }
 
